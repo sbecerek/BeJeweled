@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<h4>Windows API - lab part</h4>
+	<h2>BeWindowed 2020 a.k.a. Bejeweled in WinAPI</h2>
+	<ul>
+		<li><a href="BejeweledWinAPI_LAB.exe">Example application</a></li>
+		<li>Task description:
+			<ul>
+			<li>Your task is to create clone of popular tile-matching puzzle game known as Bejeweled.</li>
+			<li>Inside main window there is grid of gems (in our case square windows) in 6 different colors.</li>
+			<li>The player's goal is to swap gem with adjacent ones to form a sequence at least three gems of the same color in row (vertically or horizontally).</li>
+			<li>When chains are formed, the gems/windows explode and gems fall from the top to fill in gaps.</li>
+			<li><h3><b>Attention:</b> Please <u>do not</u> use GDI in this part of task. All objects should be WinAPI <u>windows</u>.</h3></li>
+			</ul>
+		</li>
+		<li>Functionality:
+			<ul>
+			<li>Main window:
+				<ul>
+					<li>fixed size, based on board size, prevent a size changing, but allow to change the window position and to be minimized</li>
+					<li>at the start and after board reset main window appears in the middle of the screen</li>
+					<li>chnage app title</li>
+				</ul>
+			</li>
+			<li>Game menu:
+				<ul>
+					<li>New Game item, and Board size with three sizes to choose (checkmark of current selection).</li>
+					<li>Proper shortcuts for menu.</li>
+				</ul>
+			</li>
+			<li>Game board:
+				<ul>
+					<li>Grid of square child windows. In small mode 8x8 windows of size 80 px, in medium mode 10x10 of size 70 px and in big mode 12x12 of size 60 px.</li>
+					<li>Gap between tile windows is 10 px wide (5 px margin for each window).</li>
+					<li>When mouse hover over the gem window it changes size by 4 px, and when mouse leaves it, the size decrease 1 px by 50 ms.</li>
+				</ul>
+			</li>
+			</ul>
+		</li>
+		<li>Additional requirements:
+			<ul>
+				<li>on the taskbar there is only one window</li>
+				<li>combination Alt + F4 closes the application</li>
+				<li>show system menu when you click Alt + Spacebar, or right-click on a window in the taskbar</li>
+				<li>no flickering or blinking and properly repainted windows after moving</li>
+			</ul>
+		</li>
+		<li>Tips:
+			<ul>
+				<li>WS_CHILDWINDOW, WS_CLIPCHILDREN</li>
+				<li>GetWindowRect(), MoveWindow(), AdjustWindowRect()</li>
+				<li>SetTimer(), WM_TIMER</li>
+				<li>InvalidateRect()</li>
+				<li>TrackMouseEvent(), WM_MOUSEMOVE, WM_MOUSELEAVE</li>
+				<li>SetWindowLongPtr(), GetWindowLongPtr(), GWLP_USERDATA</li>
+			</ul>
+		</li>
+		<li><i>Note: In all doubtful and untold aspects application should behave like example app.</i></li>
+	</ul>
+	<ul>
+		<li>Scoring:
+		<ul>
+			<li>correctly displaying main window (title, size and position): 2 points</li>
+			<li>displaying child windows in grid: 2 points</li>
+			<li>properly working menu: 2 points</li>
+			<li>changing board size: 2 points</li>
+			<li>mouse hovering window effect: 4 points</li>
+			<li><i>Note: It is not possible to obtain points for incomplete functionality.</i></li>
+		</ul>
+		</li>
+	</ul>
+</body>
+</html>
