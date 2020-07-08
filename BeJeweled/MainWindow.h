@@ -13,6 +13,7 @@ protected:
 public:
 	PCWSTR ClassName() const { return L"Main Window"; }
 	LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
+	void OnBoardSizeSmall();
 
 	//constructor
 	MainWindow()
@@ -25,6 +26,7 @@ public:
 	//getter and setter
 	void SetSize(SIZE s) { size = s; }
 	SIZE GetSize() { return size ; }
+
 
 
 

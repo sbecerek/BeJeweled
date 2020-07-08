@@ -1,6 +1,6 @@
 #pragma once
 #include <windows.h>
-SIZE CalculateSize(HWND hwnd)
+SIZE MeasureSize(HWND hwnd)
 {
     //calculates the center of the screen;
     SIZE size = SIZE();
@@ -18,7 +18,7 @@ POINT CalculateCenter(HWND hwnd)
 {
     //calculates the center of the screen;
     POINT center = POINT();
-    SIZE windowSize = CalculateSize(hwnd);
+    SIZE windowSize = MeasureSize(hwnd);
     center.x = (GetSystemMetrics(SM_CXSCREEN) - windowSize.cx) / 2;
     center.y = (GetSystemMetrics(SM_CYSCREEN) - windowSize.cy) / 2;
     return center;
