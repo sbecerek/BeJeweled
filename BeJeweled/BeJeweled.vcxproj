@@ -142,10 +142,14 @@
     <ClInclude Include="Arithmetics.h" />
     <ClInclude Include="BaseWindow.h" />
     <ClInclude Include="MainWindow.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BeJeweled.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BeJeweled.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

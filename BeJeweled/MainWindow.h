@@ -5,7 +5,10 @@
 class MainWindow : public BaseWindow<MainWindow>
 {
 protected:
+	//size holds the size of the window
 	SIZE size;
+	int cTile;	//count of the tiles
+
 
 public:
 	PCWSTR ClassName() const { return L"Main Window"; }
@@ -14,6 +17,7 @@ public:
 	//constructor
 	MainWindow()
 	{
+		cTile = 8;
 		size.cx = 720;
 		size.cy = 720;
 	}
