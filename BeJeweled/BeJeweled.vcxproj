@@ -143,6 +143,7 @@
     <ClInclude Include="BaseWindow.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BeJeweled.cpp" />

@@ -68,7 +68,7 @@ BEGIN
         MENUITEM SEPARATOR
         POPUP "Board Size"
         BEGIN
-            MENUITEM "Small\t1",                    ID_BOARDSIZE_SMALL
+            MENUITEM "Small\t1",                    ID_BOARDSIZE_SMALL, CHECKED
             MENUITEM "Medium\t2",                   ID_BOARDSIZE_MEDIUM
             MENUITEM "Big\t3",                      ID_BOARDSIZE_BIG
         END

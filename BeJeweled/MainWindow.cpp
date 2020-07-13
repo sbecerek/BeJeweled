@@ -1,4 +1,5 @@
 #include "Arithmetics.h"
+#include "Utility.h"
 #include "MainWindow.h"
 #include "resource.h"
 
@@ -10,7 +11,8 @@ void MainWindow::OnBoardSizeSmall()
     this->SetSize(s);
     MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, TRUE);
 
-    CheckMenuRadioItem(GetMenu(this->Window()), ID_BOARDSIZE_SMALL, ID_BOARDSIZE_BIG, ID_BOARDSIZE_SMALL, MF_BYCOMMAND);
+    CheckMenuItem(ID_BOARDSIZE_SMALL, GetMenu(this->Window()));
+
 }
 
 void MainWindow::OnBoardSizeMedium()
@@ -20,7 +22,8 @@ void MainWindow::OnBoardSizeMedium()
     this->SetSize(s);
     MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, TRUE);
 
-    CheckMenuRadioItem(GetMenu(this->Window()), ID_BOARDSIZE_SMALL, ID_BOARDSIZE_BIG, ID_BOARDSIZE_MEDIUM, MF_BYCOMMAND);
+    CheckMenuItem(ID_BOARDSIZE_MEDIUM, GetMenu(this->Window()));
+
 }
 
 void MainWindow::OnBoardSizeBig()
@@ -30,7 +33,8 @@ void MainWindow::OnBoardSizeBig()
     this->SetSize(s);
     MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, TRUE);
 
-    CheckMenuRadioItem(GetMenu(this->Window()), ID_BOARDSIZE_SMALL, ID_BOARDSIZE_BIG, ID_BOARDSIZE_BIG, MF_BYCOMMAND);
+    CheckMenuItem(ID_BOARDSIZE_BIG, GetMenu(this->Window()));
+
 }
 
 LRESULT MainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
