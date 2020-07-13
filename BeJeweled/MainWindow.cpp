@@ -6,9 +6,10 @@
 
 void MainWindow::OnBoardSizeSmall()
 {
-    this->cTile = 8;
+    this->cGem = 8;
     SIZE s; s.cx = 720; s.cy = 720;
     this->SetSize(s);
+    this->sGem.cx = 80; this->sGem.cy = 80;
     MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, TRUE);
 
     CheckMenuItem(ID_BOARDSIZE_SMALL, GetMenu(this->Window()));
@@ -17,9 +18,10 @@ void MainWindow::OnBoardSizeSmall()
 
 void MainWindow::OnBoardSizeMedium()
 {
-    this->cTile = 10;
+    this->cGem = 10;
     SIZE s; s.cx = 800; s.cy = 800;
     this->SetSize(s);
+    this->sGem.cx = 70; this->sGem.cy = 70;
     MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, TRUE);
 
     CheckMenuItem(ID_BOARDSIZE_MEDIUM, GetMenu(this->Window()));
@@ -28,9 +30,10 @@ void MainWindow::OnBoardSizeMedium()
 
 void MainWindow::OnBoardSizeBig()
 {
-    this->cTile = 12;
+    this->cGem = 12;
     SIZE s; s.cx = 840; s.cy = 840;
     this->SetSize(s);
+    this->sGem.cx = 60; this->sGem.cy = 60;
     MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, TRUE);
 
     CheckMenuItem(ID_BOARDSIZE_BIG, GetMenu(this->Window()));

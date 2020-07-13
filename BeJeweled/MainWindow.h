@@ -1,16 +1,21 @@
 #pragma once
-#include "resource.h"
 #include <windows.h>
+#include <vector>
+#include "resource.h"
 #include "BaseWindow.h"
-
+#include "GemWindow.h"
 
 class MainWindow : public BaseWindow<MainWindow>
 {
 protected:
 	//size holds the size of the window
-	SIZE size;
-	int cTile;	//count of the tiles
+	SIZE size;	//size of the window
+	SIZE sGem;	//size of a single Gem
+	int cGem;	//count of the tiles
 
+
+	//vector holding the gems
+	std::vector<std::vector<GemWindow>> Gems;
 
 public:
 	PCWSTR ClassName() const { return L"Main Window"; }

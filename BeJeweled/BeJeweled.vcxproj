@@ -141,12 +141,14 @@
   <ItemGroup>
     <ClInclude Include="Arithmetics.h" />
     <ClInclude Include="BaseWindow.h" />
+    <ClInclude Include="GemWindow.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BeJeweled.cpp" />
+    <ClCompile Include="GemWindow.cpp" />
     <ClCompile Include="MainWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
