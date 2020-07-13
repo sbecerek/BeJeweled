@@ -1,4 +1,6 @@
 #pragma once
+#include "resource.h"
+#include <windows.h>
 #include "BaseWindow.h"
 
 
@@ -14,13 +16,13 @@ public:
 	PCWSTR ClassName() const { return L"Main Window"; }
 	LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
 	void OnBoardSizeSmall();
+	void OnBoardSizeMedium();
+	void OnBoardSizeBig();
 
 	//constructor
 	MainWindow()
 	{
-		cTile = 8;
-		size.cx = 720;
-		size.cy = 720;
+		OnBoardSizeSmall();
 	}
 
 	//getter and setter

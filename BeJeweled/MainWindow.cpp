@@ -5,7 +5,32 @@
 
 void MainWindow::OnBoardSizeSmall()
 {
-    //create tile class work on it
+    this->cTile = 8;
+    SIZE s; s.cx = 720; s.cy = 720;
+    this->SetSize(s);
+    MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, TRUE);
+
+    CheckMenuRadioItem(GetMenu(this->Window()), ID_BOARDSIZE_SMALL, ID_BOARDSIZE_BIG, ID_BOARDSIZE_SMALL, MF_BYCOMMAND);
+}
+
+void MainWindow::OnBoardSizeMedium()
+{
+    this->cTile = 10;
+    SIZE s; s.cx = 800; s.cy = 800;
+    this->SetSize(s);
+    MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, TRUE);
+
+    CheckMenuRadioItem(GetMenu(this->Window()), ID_BOARDSIZE_SMALL, ID_BOARDSIZE_BIG, ID_BOARDSIZE_MEDIUM, MF_BYCOMMAND);
+}
+
+void MainWindow::OnBoardSizeBig()
+{
+    this->cTile = 12;
+    SIZE s; s.cx = 840; s.cy = 840;
+    this->SetSize(s);
+    MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, TRUE);
+
+    CheckMenuRadioItem(GetMenu(this->Window()), ID_BOARDSIZE_SMALL, ID_BOARDSIZE_BIG, ID_BOARDSIZE_BIG, MF_BYCOMMAND);
 }
 
 LRESULT MainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -20,24 +45,25 @@ LRESULT MainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case ID_BOARDSIZE_SMALL:
         {
-            SIZE s; s.cx = 720; s.cy = 720;
-            this->SetSize(s);
-            MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, FALSE);
+            OnBoardSizeSmall();
 
             break;
         }
 
         case ID_BOARDSIZE_MEDIUM:
         {
-            SIZE s; s.cx = 765; s.cy = 765;
-            this->SetSize(s);
-            MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, FALSE);
+            OnBoardSizeMedium();
 
-
-
-            InvalidateRect(this->m_hwnd, NULL, TRUE);
             break;
         }
+
+        case ID_BOARDSIZE_BIG:
+        {
+            OnBoardSizeBig();
+                
+            break;
+        }
+
 
         case ID_GAME_EXIT:
             PostQuitMessage(0);
