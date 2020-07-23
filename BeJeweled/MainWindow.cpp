@@ -21,6 +21,7 @@ BOOL MainWindow::CreateBoard()
 
 BOOL MainWindow::ResizeBoard(unsigned int x)
 {
+    Gems.clear();
     Gems.resize(x);
     for (unsigned int i = 0; i < x; i++)
         Gems[i].resize(x);
@@ -38,6 +39,7 @@ void MainWindow::OnBoardSizeSmall()
 
 
     ResizeBoard(cGem);
+    CreateBoard();
 
     //this is the last thing to do
     CheckMenuItem(ID_BOARDSIZE_SMALL, GetMenu(this->Window()));
@@ -52,9 +54,10 @@ void MainWindow::OnBoardSizeMedium()
     this->SetSize(s);
     this->sGem.cx = 70; this->sGem.cy = 70;
     MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, TRUE);
+
+
     ResizeBoard(cGem);
-
-
+    CreateBoard();
 
     CheckMenuItem(ID_BOARDSIZE_MEDIUM, GetMenu(this->Window()));
 
@@ -67,7 +70,9 @@ void MainWindow::OnBoardSizeBig()
     this->SetSize(s);
     this->sGem.cx = 60; this->sGem.cy = 60;
     MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, TRUE);
+
     ResizeBoard(cGem);
+    CreateBoard();
 
 
 
@@ -129,8 +134,9 @@ LRESULT MainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_CREATE:
     {
-       MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, MeasureSize(this->Window()).cx, MeasureSize(this->Window()).cy, FALSE);
-       CreateBoard();
+       //MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, MeasureSize(this->Window()).cx, MeasureSize(this->Window()).cy, FALSE);
+       //CreateBoard();
+        OnBoardSizeSmall();
 
     }return 0;
 
