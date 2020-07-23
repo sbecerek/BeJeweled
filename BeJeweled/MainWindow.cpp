@@ -11,7 +11,7 @@ BOOL MainWindow::CreateBoard()
     {
         for (unsigned int j = 0; j < GetcGem(); j++)
         {
-            if (!Gems[i][j].Create(L"gem", WS_CHILD | WS_VISIBLE, NULL, 5 + i * 80 + i * 5, 5 + j * 80 + j * 5, GetsGem().cx, GetsGem().cy, Window(), NULL))
+            if (!Gems[i][j].Create(L"gem", WS_CHILD | WS_VISIBLE, NULL, 5 + i * GetsGem().cx + i * 5, 5 + j * GetsGem().cy + j * 5, GetsGem().cx, GetsGem().cy, Window(), NULL))
                 return FALSE;
         }
     }
