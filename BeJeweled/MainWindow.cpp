@@ -4,6 +4,21 @@
 #include "resource.h"
 
 
+BOOL MainWindow::CreateBoard()
+{
+    //create gems
+    for (unsigned int i = 0; i < GetcGem(); i++)
+    {
+        for (unsigned int j = 0; j < GetcGem(); j++)
+        {
+            if (!Gems[i][j].Create(L"gem", WS_CHILD | WS_VISIBLE, NULL, 5 + i * 80 + i * 5, 5 + j * 80 + j * 5, GetsGem().cx, GetsGem().cy, Window(), NULL))
+                return FALSE;
+        }
+    }
+    return TRUE;
+}
+
+
 BOOL MainWindow::ResizeBoard(unsigned int x)
 {
     Gems.resize(x);
@@ -41,7 +56,6 @@ void MainWindow::OnBoardSizeMedium()
 
 
 
-
     CheckMenuItem(ID_BOARDSIZE_MEDIUM, GetMenu(this->Window()));
 
 }
@@ -54,6 +68,7 @@ void MainWindow::OnBoardSizeBig()
     this->sGem.cx = 60; this->sGem.cy = 60;
     MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, TRUE);
     ResizeBoard(cGem);
+
 
 
 
@@ -114,8 +129,8 @@ LRESULT MainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_CREATE:
     {
-        MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, MeasureSize(this->Window()).cx, MeasureSize(this->Window()).cy, FALSE);
-
+       MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, MeasureSize(this->Window()).cx, MeasureSize(this->Window()).cy, FALSE);
+       CreateBoard();
 
     }return 0;
 
@@ -131,9 +146,6 @@ LRESULT MainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
         EndPaint(m_hwnd, &ps);
     }
     return 0;
-
-    case WM_ERASEBKGND:
-        break;
 
     default:
         return DefWindowProc(m_hwnd, uMsg, wParam, lParam);

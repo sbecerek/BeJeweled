@@ -25,6 +25,8 @@ public:
 	void OnBoardSizeMedium();
 	void OnBoardSizeBig();
 
+	BOOL CreateBoard();
+
 	//constructor
 	MainWindow()
 	{
@@ -38,6 +40,9 @@ public:
 
 	void SetcGem(int s) { cGem = s; }
 	unsigned int GetcGem() { return cGem; }
+
+	void SetsGem(SIZE s) { sGem = s; }
+	SIZE GetsGem() { return sGem; }
 
 
 	//TODO:Write accessors for Gems Container

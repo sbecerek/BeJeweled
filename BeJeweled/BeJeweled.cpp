@@ -15,15 +15,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
 
     ShowWindow(win.Window(), nCmdShow);
 
-    //create gems
-    for (unsigned int i = 0; i < win.GetcGem(); i++)
-    {
-        for (unsigned int j = 0; j < win.GetcGem(); j++)
-        {
-            if (!win.Gems[i][j].Create(L"gem", WS_CHILDWINDOW | WS_VISIBLE, NULL, 0, 0, 80, 80, win.Window(), NULL))
-                return 0;
-        }
-    }
+
     //PROBLEM: small windows are not showing why?
 
 
