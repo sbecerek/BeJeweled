@@ -4,6 +4,15 @@
 #include "resource.h"
 
 
+BOOL MainWindow::ResizeBoard(unsigned int x)
+{
+    Gems.resize(x);
+    for (unsigned int i = 0; i < x; i++)
+        Gems[i].resize(x);
+
+    return TRUE;
+}
+
 void MainWindow::OnBoardSizeSmall()
 {
     this->cGem = 8;
@@ -12,7 +21,12 @@ void MainWindow::OnBoardSizeSmall()
     this->sGem.cx = 80; this->sGem.cy = 80;
     MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, TRUE);
 
+
+    ResizeBoard(cGem);
+
+    //this is the last thing to do
     CheckMenuItem(ID_BOARDSIZE_SMALL, GetMenu(this->Window()));
+
 
 }
 
@@ -23,6 +37,10 @@ void MainWindow::OnBoardSizeMedium()
     this->SetSize(s);
     this->sGem.cx = 70; this->sGem.cy = 70;
     MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, TRUE);
+    ResizeBoard(cGem);
+
+
+
 
     CheckMenuItem(ID_BOARDSIZE_MEDIUM, GetMenu(this->Window()));
 
@@ -35,6 +53,10 @@ void MainWindow::OnBoardSizeBig()
     this->SetSize(s);
     this->sGem.cx = 60; this->sGem.cy = 60;
     MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetSize().cx, this->GetSize().cy, TRUE);
+    ResizeBoard(cGem);
+
+
+
 
     CheckMenuItem(ID_BOARDSIZE_BIG, GetMenu(this->Window()));
 
@@ -71,6 +93,10 @@ LRESULT MainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
             break;
         }
 
+        case ID_GAME_NEWGAME:
+        {
+            //initialize color
+        }
 
         case ID_GAME_EXIT:
             PostQuitMessage(0);
@@ -90,6 +116,7 @@ LRESULT MainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
     {
         MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, MeasureSize(this->Window()).cx, MeasureSize(this->Window()).cy, FALSE);
 
+
     }return 0;
 
     case WM_DESTROY:
@@ -104,6 +131,9 @@ LRESULT MainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
         EndPaint(m_hwnd, &ps);
     }
     return 0;
+
+    case WM_ERASEBKGND:
+        break;
 
     default:
         return DefWindowProc(m_hwnd, uMsg, wParam, lParam);

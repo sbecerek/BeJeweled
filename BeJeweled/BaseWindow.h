@@ -23,6 +23,9 @@ public:
         }
         if (pThis)
         {
+            //getting read access violation here why?
+            //because on resize you are not initializing tiles
+            //but resizing the thing
             return pThis->HandleMessage(uMsg, wParam, lParam);
         }
         else

@@ -1,5 +1,14 @@
 #include "GemWindow.h"
 
+void GemWindow::Render()
+{
+    HBRUSH brush = CreateSolidBrush(color);
+    SetClassLongPtr(this->Window(), GCLP_HBRBACKGROUND, (LONG_PTR)brush);
+
+    InvalidateRect(this->Window(), NULL, TRUE);
+}
+
+
 LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
@@ -16,6 +25,8 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
         EndPaint(m_hwnd, &ps);
     }
     return 0;
+
+
 
     default:
         return DefWindowProc(m_hwnd, uMsg, wParam, lParam);
