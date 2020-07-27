@@ -37,10 +37,7 @@ void MainWindow::OnBoardSizeSmall()
     this->SetClientSize(s);
 
     //can't do shit if the window is not displaying yet
-    //OK let's be honest 
-    //YOU FUCKED IT UP
-    //SHIT WENT TO CEILING
-    //TRY AGAIN
+
     
     MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y,MeasureSize(Window()).cx , MeasureSize(Window()).cy, TRUE);
 
