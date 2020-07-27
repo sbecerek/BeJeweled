@@ -2,7 +2,7 @@
 #include <windows.h>
 SIZE MeasureSize(HWND hwnd)
 {
-    //calculates the center of the screen;
+    //calculates the size of the rectangle
     SIZE size = SIZE();
 
     RECT rect;

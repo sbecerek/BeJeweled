@@ -8,13 +8,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
     MainWindow win;
     
     //create main window
-    if (!win.Create(L"Suheyb\'s BeJeweled", WS_OVERLAPPED | WS_MINIMIZEBOX | WS_SYSMENU |WS_CLIPCHILDREN,NULL ,CW_USEDEFAULT,CW_USEDEFAULT,win.GetSize().cx,win.GetSize().cy,NULL, LoadMenu(hInstance, MAKEINTRESOURCE(IDR_MENU))))
+    if (!win.Create(L"Suheyb\'s BeJeweled", WS_OVERLAPPED | WS_MINIMIZEBOX | WS_SYSMENU |WS_CLIPCHILDREN | WS_VISIBLE,NULL ,CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,NULL, LoadMenu(hInstance, MAKEINTRESOURCE(IDR_MENU))))
     {
         return 0;
     }
 
-    ShowWindow(win.Window(), nCmdShow);
-
+    //ShowWindow(win.Window(), nCmdShow)
 
     //PROBLEM: small windows are not showing why?
 

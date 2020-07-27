@@ -5,11 +5,13 @@
 #include "BaseWindow.h"
 #include "GemWindow.h"
 
+#define MAX_GEM_COUNT 12
+
 class MainWindow : public BaseWindow<MainWindow>
 {
 protected:
 	//size holds the size of the window
-	SIZE size;	//size of the window
+	SIZE clientSize;	//size of the window
 	SIZE sGem;	//size of a single Gem. this value to be passed by the main window to created gem
 	unsigned int cGem;	//count of the tiles
 
@@ -17,7 +19,7 @@ protected:
 	//vector holding the gems
 
 public:
-	std::vector<std::vector<GemWindow>> Gems;
+	GemWindow Gems[MAX_GEM_COUNT][MAX_GEM_COUNT];
 	PCWSTR ClassName() const { return L"Main Window"; }
 	LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
 	BOOL ResizeBoard(unsigned int x);
@@ -31,12 +33,11 @@ public:
 	MainWindow()
 	{
 		
-		OnBoardSizeSmall();
 	}
 
 	//getter and setter
-	void SetSize(SIZE s) { size = s; }
-	SIZE GetSize() { return size ; }
+	void SetClientSize(SIZE s) { clientSize = s; }
+	SIZE GetClientSize() { return clientSize ; }
 
 	void SetcGem(int s) { cGem = s; }
 	unsigned int GetcGem() { return cGem; }

@@ -14,7 +14,7 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
     {
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(m_hwnd, &ps);
-        FillRect(hdc, &ps.rcPaint, CreateSolidBrush(color));
+        //FillRect(hdc, &ps.rcPaint, CreateSolidBrush(color));
         EndPaint(m_hwnd, &ps);
     }
     return 0;
