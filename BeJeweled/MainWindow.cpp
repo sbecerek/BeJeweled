@@ -29,7 +29,7 @@ BOOL MainWindow::CreateBoard()
             if (Gems[i][j].Create(L"gem", WS_CHILD | WS_VISIBLE, NULL, 5 + i * GetsGem().cx + i * 5, 5 + j * GetsGem().cy + j * 5, GetsGem().cx, GetsGem().cy, Window(), NULL))
             {
                 
-                HBRUSH hbrush = CreateSolidBrush(RGB(125,125,125));//rgb hexadecimal
+                HBRUSH hbrush = CreateSolidBrush(RGB(125,125,125));
                 HBRUSH hOldBrush = (HBRUSH)SetClassLongPtr(Gems[i][j].Window(), GCLP_HBRBACKGROUND, (LONG_PTR)hbrush);
                 DeleteObject(hOldBrush);
                 InvalidateRect(Gems[i][j].Window(), NULL, TRUE);
@@ -47,19 +47,19 @@ BOOL MainWindow::CreateBoard()
 BOOL MainWindow::AdjustWindow()
 {
     //use required fields to set rectangle of client area
-    RECT clientRect;
-    clientRect.left = GetScreenCenter().x - GetClientSize().cx / 2;
-    clientRect.top = GetScreenCenter().y - GetClientSize().cy / 2;
-    clientRect.right = GetScreenCenter().x + GetClientSize().cx / 2;
-    clientRect.bottom = GetScreenCenter().y + GetClientSize().cy / 2;
+    RECT clientToWindowRect;
+    clientToWindowRect.left = GetScreenCenter().x - GetClientSize().cx / 2;
+    clientToWindowRect.top = GetScreenCenter().y - GetClientSize().cy / 2;
+    clientToWindowRect.right = GetScreenCenter().x + GetClientSize().cx / 2;
+    clientToWindowRect.bottom = GetScreenCenter().y + GetClientSize().cy / 2;
     //send it to  AdjustWindowRect()
-    if (!AdjustWindowRect(&clientRect, WS_OVERLAPPEDWINDOW | WS_MINIMIZEBOX | WS_SYSMENU | WS_CLIPCHILDREN | WS_VISIBLE, TRUE))
+    if (!AdjustWindowRect(&clientToWindowRect, WS_OVERLAPPEDWINDOW | WS_MINIMIZEBOX | WS_SYSMENU | WS_CLIPCHILDREN | WS_VISIBLE, TRUE))
     {
         GetLastError();
         return FALSE;
     }
     //use rectangle in MoveWindow()
-    if (!MoveWindow(this->Window(), CalculateCenter(this->Window(), clientRect).x, CalculateCenter(this->Window(), clientRect).y, MeasureRect(clientRect).cx, MeasureRect(clientRect).cy, TRUE))
+    if (!MoveWindow(this->Window(), CalculateCenter(this->Window(), clientToWindowRect).x, CalculateCenter(this->Window(), clientToWindowRect).y, MeasureRect(clientToWindowRect).cx, MeasureRect(clientToWindowRect).cy, TRUE))
     {
         GetLastError();
         return FALSE;
@@ -174,10 +174,7 @@ LRESULT MainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_CREATE:
     {
-       //MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, MeasureSize(this->Window()).cx, MeasureSize(this->Window()).cy, FALSE);
-       //CreateBoard();
         OnBoardSizeSmall();
-
     }return 0;
 
     case WM_DESTROY:
