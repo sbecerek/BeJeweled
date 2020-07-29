@@ -24,3 +24,11 @@ POINT CalculateCenter(HWND hwnd)
     return center;
 }
 
+POINT GetScreenCenter()
+{
+    //calculates the center of the screen for given window handle
+    POINT center = POINT();
+    center.x = (GetSystemMetrics(SM_CXSCREEN)) / 2;
+    center.y = (GetSystemMetrics(SM_CYSCREEN)) / 2;
+    return center;
+}

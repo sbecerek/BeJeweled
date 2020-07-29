@@ -7,6 +7,8 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
     switch (uMsg)
     {
     case WM_DESTROY:
+        //having postquit message was the problem
+        //it quit the whole app
         DestroyWindow(Window());
         break;
     case WM_PAINT:

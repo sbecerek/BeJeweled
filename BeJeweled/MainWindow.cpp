@@ -5,17 +5,18 @@
 
 BOOL MainWindow::ClearBoard()
 {
-    for (unsigned int i = 0; i < 12; i++)
+    for (unsigned int i = 0; i < MAX_GEM_COUNT; i++)
     {
-        for (unsigned int j = 0; j < 12; j++)
+        for (unsigned int j = 0; j < MAX_GEM_COUNT; j++)
         {
-            //DestroyWindow() closes all associated windows
-            SendMessage(Gems[i][j].Window(), WM_CLOSE, NULL, NULL);
+            //SendMessage(Gems[i][j].Window(), WM_CLOSE, NULL, NULL);
+            //Handle WM_DESTROY no need to send message
+            //below function sends WM_DESTROY
+            DestroyWindow(Gems[i][j].Window());
         }
     }
 
-    UpdateWindow(Window());
-    return TRUE;
+    return UpdateWindow(Window());
 }
 
 
@@ -53,7 +54,12 @@ void MainWindow::OnBoardSizeSmall()
     SIZE s; s.cx = s.cy = cGem * (sGem.cx + 10) ;
     this->SetClientSize(s);
 
-    //can't do shit if the window is not displaying yet
+    //use required fields to set rectangle of client area
+    //RECT clientRect;
+
+    //send it to  AdjustWindowRect()
+
+    //use rectangle in MoveWindow()
 
     
     MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetClientSize().cx, this->GetClientSize().cy, TRUE);

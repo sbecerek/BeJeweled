@@ -1,2 +1,3 @@
-﻿  GemWindow.cpp
+﻿  MainWindow.cpp
+C:\Users\suhey\Desktop\BeJeweled\BeJeweled\MainWindow.cpp(58,10): warning C4101: 'clientRect': unreferenced local variable
   BeJeweled.vcxproj -> C:\Users\suhey\Desktop\BeJeweled\Debug\BeJeweled.exe
