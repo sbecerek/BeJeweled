@@ -13,11 +13,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
         return 0;
     }
 
-    //ShowWindow(win.Window(), nCmdShow)
-
-    //PROBLEM: small windows are not showing why?
-
-
 
     //load the accelerator - shortcuts
     HACCEL hAccel = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDR_ACCELERATOR));

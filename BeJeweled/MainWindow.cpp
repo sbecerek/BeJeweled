@@ -40,31 +40,44 @@ BOOL MainWindow::CreateBoard()
                 return FALSE;
             }
         }
-
     }
     return TRUE;
 }
 
+BOOL MainWindow::AdjustWindow()
+{
+    //use required fields to set rectangle of client area
+    RECT clientRect;
+    clientRect.left = GetScreenCenter().x - GetClientSize().cx / 2;
+    clientRect.top = GetScreenCenter().y - GetClientSize().cy / 2;
+    clientRect.right = GetScreenCenter().x + GetClientSize().cx / 2;
+    clientRect.bottom = GetScreenCenter().y + GetClientSize().cy / 2;
+    //send it to  AdjustWindowRect()
+    if (!AdjustWindowRect(&clientRect, WS_OVERLAPPEDWINDOW | WS_MINIMIZEBOX | WS_SYSMENU | WS_CLIPCHILDREN | WS_VISIBLE, TRUE))
+    {
+        GetLastError();
+        return FALSE;
+    }
+    //use rectangle in MoveWindow()
+    if (!MoveWindow(this->Window(), CalculateCenter(this->Window(), clientRect).x, CalculateCenter(this->Window(), clientRect).y, MeasureRect(clientRect).cx, MeasureRect(clientRect).cy, TRUE))
+    {
+        GetLastError();
+        return FALSE;
+    }
+    return TRUE;
+}
 
 void MainWindow::OnBoardSizeSmall()
 {
     ClearBoard();
     this->cGem = 8;
     this->sGem.cx = 80; this->sGem.cy = 80;
-    SIZE s; s.cx = s.cy = cGem * (sGem.cx + 10) ;
+    SIZE s; s.cx = s.cy = cGem * sGem.cx + (cGem - 1)*5 + 10;
     this->SetClientSize(s);
 
-    //use required fields to set rectangle of client area
-    //RECT clientRect;
-
-    //send it to  AdjustWindowRect()
-
-    //use rectangle in MoveWindow()
-
     
-    MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetClientSize().cx, this->GetClientSize().cy, TRUE);
 
-
+    AdjustWindow();
     CreateBoard();
     InvalidateRect(Window(), NULL, TRUE);
 
@@ -79,10 +92,10 @@ void MainWindow::OnBoardSizeMedium()
     ClearBoard();
     this->cGem = 10;
     this->sGem.cx = 70; this->sGem.cy = 70;
-    SIZE s; s.cx = s.cy = cGem * (sGem.cx + 10);
+    SIZE s; s.cx = s.cy = cGem * sGem.cx + (cGem - 1) * 5 + 10;
     this->SetClientSize(s);
-    MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetClientSize().cx, this->GetClientSize().cy, TRUE);
 
+    AdjustWindow();
     CreateBoard();
     InvalidateRect(Window(), NULL, TRUE);
 
@@ -95,10 +108,10 @@ void MainWindow::OnBoardSizeBig()
     ClearBoard();
     this->cGem = 12;
     this->sGem.cx = 60; this->sGem.cy = 60;
-    SIZE s; s.cx = s.cy = cGem * (sGem.cx + 10);
+    SIZE s; s.cx = s.cy = cGem * sGem.cx + (cGem - 1) * 5 + 10;
     this->SetClientSize(s);
-    MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetClientSize().cx, this->GetClientSize().cy, TRUE);
 
+    AdjustWindow();
     CreateBoard();
     InvalidateRect(Window(), NULL, TRUE);
 

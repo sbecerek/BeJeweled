@@ -14,11 +14,19 @@ SIZE MeasureSize(HWND hwnd)
     return size;
 }
 
-POINT CalculateCenter(HWND hwnd)
+SIZE MeasureRect(RECT rect)
+{
+    SIZE size;
+    size.cx = rect.right - rect.left;
+    size.cy = rect.bottom - rect.top;
+    return size;
+}
+
+POINT CalculateCenter(HWND hwnd,RECT rect)
 {
     //calculates the center of the screen for given window handle
     POINT center = POINT();
-    SIZE windowSize = MeasureSize(hwnd);
+    SIZE windowSize = MeasureRect(rect);
     center.x = (GetSystemMetrics(SM_CXSCREEN) - windowSize.cx) / 2;
     center.y = (GetSystemMetrics(SM_CYSCREEN) - windowSize.cy) / 2;
     return center;

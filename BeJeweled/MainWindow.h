@@ -29,6 +29,7 @@ public:
 
 	BOOL CreateBoard();
 	BOOL ClearBoard();
+	BOOL AdjustWindow();
 
 	//constructor
 	MainWindow()
