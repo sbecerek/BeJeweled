@@ -3,6 +3,21 @@
 #include "MainWindow.h"
 #include "resource.h"
 
+BOOL MainWindow::ClearBoard()
+{
+    for (unsigned int i = 0; i < 12; i++)
+    {
+        for (unsigned int j = 0; j < 12; j++)
+        {
+            //DestroyWindow() closes all associated windows
+            SendMessage(Gems[i][j].Window(), WM_CLOSE, NULL, NULL);
+        }
+    }
+
+    UpdateWindow(Window());
+    return TRUE;
+}
+
 
 BOOL MainWindow::CreateBoard()
 {
@@ -12,10 +27,12 @@ BOOL MainWindow::CreateBoard()
         {
             if (Gems[i][j].Create(L"gem", WS_CHILD | WS_VISIBLE, NULL, 5 + i * GetsGem().cx + i * 5, 5 + j * GetsGem().cy + j * 5, GetsGem().cx, GetsGem().cy, Window(), NULL))
             {
+                
                 HBRUSH hbrush = CreateSolidBrush(RGB(125,125,125));//rgb hexadecimal
                 HBRUSH hOldBrush = (HBRUSH)SetClassLongPtr(Gems[i][j].Window(), GCLP_HBRBACKGROUND, (LONG_PTR)hbrush);
                 DeleteObject(hOldBrush);
-                InvalidateRect(Gems[i][j].Window(), NULL, 1);
+                InvalidateRect(Gems[i][j].Window(), NULL, TRUE);
+
             }
             else
             {
@@ -30,7 +47,7 @@ BOOL MainWindow::CreateBoard()
 
 void MainWindow::OnBoardSizeSmall()
 {
-    
+    ClearBoard();
     this->cGem = 8;
     this->sGem.cx = 80; this->sGem.cy = 80;
     SIZE s; s.cx = s.cy = cGem * (sGem.cx + 10) ;
@@ -39,9 +56,11 @@ void MainWindow::OnBoardSizeSmall()
     //can't do shit if the window is not displaying yet
 
     
-    MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y,MeasureSize(Window()).cx , MeasureSize(Window()).cy, TRUE);
+    MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetClientSize().cx, this->GetClientSize().cy, TRUE);
+
 
     CreateBoard();
+    InvalidateRect(Window(), NULL, TRUE);
 
     //this is the last thing to do
     CheckMenuItem(ID_BOARDSIZE_SMALL, GetMenu(this->Window()));
@@ -51,6 +70,7 @@ void MainWindow::OnBoardSizeSmall()
 
 void MainWindow::OnBoardSizeMedium()
 {
+    ClearBoard();
     this->cGem = 10;
     this->sGem.cx = 70; this->sGem.cy = 70;
     SIZE s; s.cx = s.cy = cGem * (sGem.cx + 10);
@@ -58,13 +78,15 @@ void MainWindow::OnBoardSizeMedium()
     MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetClientSize().cx, this->GetClientSize().cy, TRUE);
 
     CreateBoard();
+    InvalidateRect(Window(), NULL, TRUE);
+
 
     CheckMenuItem(ID_BOARDSIZE_MEDIUM, GetMenu(this->Window()));
-
 }
 
 void MainWindow::OnBoardSizeBig()
 {
+    ClearBoard();
     this->cGem = 12;
     this->sGem.cx = 60; this->sGem.cy = 60;
     SIZE s; s.cx = s.cy = cGem * (sGem.cx + 10);
@@ -72,7 +94,7 @@ void MainWindow::OnBoardSizeBig()
     MoveWindow(this->Window(), CalculateCenter(this->Window()).x, CalculateCenter(this->Window()).y, this->GetClientSize().cx, this->GetClientSize().cy, TRUE);
 
     CreateBoard();
-
+    InvalidateRect(Window(), NULL, TRUE);
 
 
 

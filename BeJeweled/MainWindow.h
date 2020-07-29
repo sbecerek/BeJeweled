@@ -22,12 +22,13 @@ public:
 	GemWindow Gems[MAX_GEM_COUNT][MAX_GEM_COUNT];
 	PCWSTR ClassName() const { return L"Main Window"; }
 	LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
-	BOOL ResizeBoard(unsigned int x);
+
 	void OnBoardSizeSmall();
 	void OnBoardSizeMedium();
 	void OnBoardSizeBig();
 
 	BOOL CreateBoard();
+	BOOL ClearBoard();
 
 	//constructor
 	MainWindow()

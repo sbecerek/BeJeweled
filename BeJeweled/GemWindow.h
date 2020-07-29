@@ -14,7 +14,7 @@ public:
 
 	GemWindow()
 	{
-
+		color = RGB(125, 125, 125);
 	}
 
 	~GemWindow() {};

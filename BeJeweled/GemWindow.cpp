@@ -7,9 +7,8 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
     switch (uMsg)
     {
     case WM_DESTROY:
-        PostQuitMessage(0);
-        return 0;
-
+        DestroyWindow(Window());
+        break;
     case WM_PAINT:
     {
         PAINTSTRUCT ps;
