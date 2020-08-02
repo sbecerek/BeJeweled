@@ -4,9 +4,11 @@
 class GemWindow : public BaseWindow<GemWindow>
 {
 protected:
+	POINT position;
 	SIZE size;
-    COLORREF color;
+	COLORREF color;
 public:
+	
 	PCWSTR ClassName() const { return L"Gem"; }
 	LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -19,9 +21,12 @@ public:
 
 	~GemWindow() {};
 
-
 	//getter and setter
-	void SetSize(SIZE s) { size = s; }
+	void SetSize(int x, int y) { size.cx = x; size.cy = y; }
 	SIZE GetSize() { return size; }
+
+	void SetPosition(int x, int y) { position.x = x; position.y = y; }
+	POINT GetPosition() { return position; }
+
 
 };

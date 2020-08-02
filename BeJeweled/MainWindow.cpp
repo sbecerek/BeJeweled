@@ -26,9 +26,14 @@ BOOL MainWindow::CreateBoard()
     {
         for (unsigned int j = 0; j < GetcGem(); j++)
         {
-            if (Gems[i][j].Create(L"gem", WS_CHILD | WS_VISIBLE, NULL, 5 + i * GetsGem().cx + i * 5, 5 + j * GetsGem().cy + j * 5, GetsGem().cx, GetsGem().cy, Window(), NULL))
+            if (Gems[i][j].Create(L"gem", WS_CHILDWINDOW | WS_VISIBLE, NULL, 
+              5 + i * GetsGem().cx + i * 10, 
+              5 + j * GetsGem().cy + j * 10, GetsGem().cx, GetsGem().cy, Window(), NULL))
             {
-                
+                //pass from main window to Gem object
+                Gems[i][j].SetSize(GetsGem().cx, GetsGem().cy);
+                Gems[i][j].SetPosition(5 + i * GetsGem().cx + i * 10, 5 + j * GetsGem().cy + j * 10);
+
                 HBRUSH hbrush = CreateSolidBrush(RGB(125,125,125));
                 HBRUSH hOldBrush = (HBRUSH)SetClassLongPtr(Gems[i][j].Window(), GCLP_HBRBACKGROUND, (LONG_PTR)hbrush);
                 DeleteObject(hOldBrush);
@@ -72,7 +77,7 @@ void MainWindow::OnBoardSizeSmall()
     ClearBoard();
     this->cGem = 8;
     this->sGem.cx = 80; this->sGem.cy = 80;
-    SIZE s; s.cx = s.cy = cGem * sGem.cx + (cGem - 1)*5 + 10;
+    SIZE s; s.cx = s.cy = cGem * (sGem.cx +  10);
     this->SetClientSize(s);
 
     
@@ -92,7 +97,7 @@ void MainWindow::OnBoardSizeMedium()
     ClearBoard();
     this->cGem = 10;
     this->sGem.cx = 70; this->sGem.cy = 70;
-    SIZE s; s.cx = s.cy = cGem * sGem.cx + (cGem - 1) * 5 + 10;
+    SIZE s; s.cx = s.cy = cGem * (sGem.cx + 10);
     this->SetClientSize(s);
 
     AdjustWindow();
@@ -108,7 +113,7 @@ void MainWindow::OnBoardSizeBig()
     ClearBoard();
     this->cGem = 12;
     this->sGem.cx = 60; this->sGem.cy = 60;
-    SIZE s; s.cx = s.cy = cGem * sGem.cx + (cGem - 1) * 5 + 10;
+    SIZE s; s.cx = s.cy = cGem * (sGem.cx + 10);
     this->SetClientSize(s);
 
     AdjustWindow();
