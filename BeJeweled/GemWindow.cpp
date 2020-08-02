@@ -1,8 +1,9 @@
+#include <iostream>
 #include "GemWindow.h"
 
 
 
-BOOL TheButtonToggle = false;
+BOOL GemWindow::tracking = false;
 
 LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -14,34 +15,26 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_MOUSEMOVE:
     {
-        if (TheButtonToggle == false) {
-            tagTRACKMOUSEEVENT tme;
-            tme.cbSize = sizeof(TRACKMOUSEEVENT);
-            tme.dwFlags = TME_HOVER | TME_LEAVE;
-            tme.dwHoverTime = HOVER_DEFAULT;
-            tme.hwndTrack = Window();
-            TheButtonToggle = true;
-            TrackMouseEvent(&tme);
-
-            MoveWindow(Window(), GetSize().cx + 4, GetSize().cy + 4, GetPosition().x + 2, GetPosition().y + 2, TRUE);
+        if (!tracking) {
+            TrackMouse();
+            tracking = true;
         }
-        UpdateWindow(Window());
-        UpdateWindow((HWND)GetClassLongPtr(Window(), GWLP_HWNDPARENT));
 
     }break;
 
-
-    case WM_TIMER:
+    case WM_MOUSEHOVER:
     {
-
+        MoveWindow(Window(), GetSize().cx + 4, GetSize().cy + 4, GetPosition().x - 2, GetPosition().y - 2, TRUE);
+        InvalidateRect(Window(), NULL, TRUE);
+        OutputDebugString(L"MOUSE ENTERED\n");
     }break;
 
     case WM_MOUSELEAVE:
     {
-        TheButtonToggle = false;
         MoveWindow(Window(), GetSize().cx, GetSize().cy, GetPosition().x, GetPosition().y, TRUE);
-        UpdateWindow(Window());
-        UpdateWindow((HWND)GetClassLongPtr(Window(), GWLP_HWNDPARENT));
+        InvalidateRect(Window(), NULL, TRUE);
+        OutputDebugString(L"MOUSE LEFT\n");
+        tracking = false;
     }break;
 
 
@@ -51,6 +44,7 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
         HDC hdc = BeginPaint(m_hwnd, &ps);
         //FillRect(hdc, &ps.rcPaint, CreateSolidBrush(color));
         EndPaint(m_hwnd, &ps);
+        //OutputDebugString(L"PAINT\n");
     }
     return 0;
 

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ARITHMETICS_H
+#define ARITHMETICS_H
 #include <windows.h>
 SIZE MeasureSize(HWND hwnd)
 {
@@ -40,3 +41,6 @@ POINT GetScreenCenter()
     center.y = (GetSystemMetrics(SM_CYSCREEN)) / 2;
     return center;
 }
+
+
+#endif

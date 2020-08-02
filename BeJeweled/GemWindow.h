@@ -1,5 +1,8 @@
-#pragma once
+#ifndef GEMWINDOW_H
+#define GEMWINDOW_H
 #include "BaseWindow.h"
+
+
 
 class GemWindow : public BaseWindow<GemWindow>
 {
@@ -8,7 +11,7 @@ protected:
 	SIZE size;
 	COLORREF color;
 public:
-	
+	static BOOL tracking;
 	PCWSTR ClassName() const { return L"Gem"; }
 	LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -16,7 +19,7 @@ public:
 
 	GemWindow()
 	{
-		color = RGB(125, 125, 125);
+		color = RGB(55, 55, 55);
 	}
 
 	~GemWindow() {};
@@ -29,4 +32,17 @@ public:
 	POINT GetPosition() { return position; }
 
 
+	//method for tracking mouse
+	void TrackMouse(/*reusability enhanced if you add arguments in the future*/)
+	{
+		TRACKMOUSEEVENT tme;
+		tme.cbSize = sizeof(TRACKMOUSEEVENT);
+		tme.dwFlags = TME_HOVER | TME_LEAVE; //Type of events to track & trigger.
+		tme.dwHoverTime = 1; //How long the mouse has to be in the window to trigger a hover event.
+		tme.hwndTrack = Window();
+		TrackMouseEvent(&tme);
+	}
+
 };
+
+#endif

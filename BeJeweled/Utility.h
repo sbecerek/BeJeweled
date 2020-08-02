@@ -1,4 +1,7 @@
-#pragma once
+#ifndef  UTILITY_H
+#define UTILITY_H
+
+
 #include "resource.h"
 #include <windows.h>
 
@@ -12,3 +15,7 @@ DWORD CheckMenuItem(UINT hItem, HMENU hmenu)
 	//then check the hItem
 	return CheckMenuItem(hmenu, hItem, MF_BYCOMMAND | MF_CHECKED);
 }
+
+
+
+#endif // ! 

@@ -1,7 +1,7 @@
 #include "Arithmetics.h"
-#include "Utility.h"
 #include "MainWindow.h"
 #include "resource.h"
+#include "Utility.h"
 
 BOOL MainWindow::ClearBoard()
 {
@@ -15,8 +15,9 @@ BOOL MainWindow::ClearBoard()
             DestroyWindow(Gems[i][j].Window());
         }
     }
-
+    
     return UpdateWindow(Window());
+
 }
 
 
@@ -26,7 +27,7 @@ BOOL MainWindow::CreateBoard()
     {
         for (unsigned int j = 0; j < GetcGem(); j++)
         {
-            if (Gems[i][j].Create(L"gem", WS_CHILDWINDOW | WS_VISIBLE, NULL, 
+            if (Gems[i][j].Create(L"gem",  WS_CHILDWINDOW | WS_VISIBLE, NULL, 
               5 + i * GetsGem().cx + i * 10, 
               5 + j * GetsGem().cy + j * 10, GetsGem().cx, GetsGem().cy, Window(), NULL))
             {
@@ -34,7 +35,7 @@ BOOL MainWindow::CreateBoard()
                 Gems[i][j].SetSize(GetsGem().cx, GetsGem().cy);
                 Gems[i][j].SetPosition(5 + i * GetsGem().cx + i * 10, 5 + j * GetsGem().cy + j * 10);
 
-                HBRUSH hbrush = CreateSolidBrush(RGB(125,125,125));
+                HBRUSH hbrush = CreateSolidBrush(RGB(55,55,55));
                 HBRUSH hOldBrush = (HBRUSH)SetClassLongPtr(Gems[i][j].Window(), GCLP_HBRBACKGROUND, (LONG_PTR)hbrush);
                 DeleteObject(hOldBrush);
                 InvalidateRect(Gems[i][j].Window(), NULL, TRUE);

@@ -1,7 +1,7 @@
-#pragma once
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
 #include <windows.h>
-#include <vector>
-#include "resource.h"
 #include "BaseWindow.h"
 #include "GemWindow.h"
 
@@ -55,3 +55,5 @@ public:
 
 
 };
+
+#endif // !MAINWINDOW_H
