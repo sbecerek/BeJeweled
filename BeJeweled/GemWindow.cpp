@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 #include "GemWindow.h"
 
 
@@ -30,11 +31,36 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_MOUSELEAVE:
     {
-        MoveWindow(Window(), GetPosition().x, GetPosition().y, GetSize().cx, GetSize().cy, TRUE);
+        //MoveWindow(Window(), GetPosition().x + 2, GetPosition().y + 2, GetSize().cx - 4, GetSize().cy - 4, TRUE);
+        //SetSize(GetSize().cx - 4, GetSize().cy - 4);
+        //SetPosition(GetPosition().x + 2, GetPosition().y + 2);
+        SetTimer(Window(), this->GEM_TIMER ,50,NULL);
         OutputDebugString(L"MOUSE LEFT\n");
+        OutputDebugString(L"PING\n");
         tracking = false;
     }break;
 
+    case WM_TIMER:
+    {
+        if (wParam == this->GEM_TIMER)
+        {
+            {
+                if (TIMER_COUNTER < 4)
+                {
+                    TIMER_COUNTER++;
+                    MoveWindow(Window(), GetPosition().x + 1 * TIMER_COUNTER/2 - 2, GetPosition().y + 1* TIMER_COUNTER/2 - 2, GetSize().cx - 1 * TIMER_COUNTER + 4, GetSize().cy - 1 * TIMER_COUNTER + 4, TRUE);
+                    OutputDebugString(L"PONG\n");
+                }
+                else
+                {
+                    KillTimer(Window(), GEM_TIMER);
+                    TIMER_COUNTER = 0;
+                }
+            }
+        }
+        
+
+    }break;
 
     case WM_PAINT:
     {

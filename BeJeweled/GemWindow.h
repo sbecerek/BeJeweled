@@ -1,5 +1,6 @@
 #ifndef GEMWINDOW_H
 #define GEMWINDOW_H
+#include <math.h>
 #include "BaseWindow.h"
 
 
@@ -11,6 +12,12 @@ protected:
 	SIZE size;
 	COLORREF color;
 public:
+
+
+	int TIMER_COUNTER;
+	const int GEM_TIMER = static_cast<const int>(pow(GetPosition().x , GetPosition().y));
+
+
 	static BOOL tracking;
 	PCWSTR ClassName() const { return L"Gem"; }
 	LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -20,6 +27,7 @@ public:
 	GemWindow()
 	{
 		color = RGB(55, 55, 55);
+		TIMER_COUNTER = 0;
 	}
 
 	~GemWindow() {};
