@@ -25,7 +25,7 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_MOUSEHOVER:
     {
-        MoveWindow(Window(), GetPosition().x - 2, GetPosition().y - 2, GetSize().cx + 4, GetSize().cy + 4, TRUE);
+        MoveWindow(Window(), GetPosition().x - 4, GetPosition().y - 4, GetSize().cx + 8, GetSize().cy + 8, TRUE);
         OutputDebugString(L"MOUSE ENTERED\n");
     }break;
 
@@ -48,7 +48,7 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
                 if (TIMER_COUNTER < 4)
                 {
                     TIMER_COUNTER++;
-                    MoveWindow(Window(), GetPosition().x + 1 * TIMER_COUNTER/2 - 2, GetPosition().y + 1* TIMER_COUNTER/2 - 2, GetSize().cx - 1 * TIMER_COUNTER + 4, GetSize().cy - 1 * TIMER_COUNTER + 4, TRUE);
+                    MoveWindow(Window(), GetPosition().x + 1 * TIMER_COUNTER - 4, GetPosition().y + 1* TIMER_COUNTER - 4, GetSize().cx - 2 * TIMER_COUNTER + 8 , GetSize().cy - 2 * TIMER_COUNTER + 8, TRUE);
                     OutputDebugString(L"PONG\n");
                 }
                 else
