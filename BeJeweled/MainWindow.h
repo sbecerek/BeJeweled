@@ -4,8 +4,12 @@
 #include <windows.h>
 #include "BaseWindow.h"
 #include "GemWindow.h"
+#include <map>
+#include <string>
 
 #define MAX_GEM_COUNT 12
+
+//enum class COLORS : COLORREF { NAVY = RGB(0,0,128), PINK = RGB(255, 105, 180), TURQUISE = RGB(64, 224, 208), RED = RGB(255, 0, 0), YELLOW = RGB(255, 255, 0), GREEN = RGB(0, 255, 0)};
 
 class MainWindow : public BaseWindow<MainWindow>
 {
@@ -20,12 +24,17 @@ protected:
 
 public:
 	GemWindow Gems[MAX_GEM_COUNT][MAX_GEM_COUNT];
+	const std::map<std::string, COLORREF> colorSet{ {"NAVY",RGB(0,0,128)},{"PINK",RGB(255, 105, 180)},{"TURQUISE",RGB(64, 224, 208)},{"RED",RGB(255, 0, 0)},{"YELLOW", RGB(255, 255, 0)},{"GREEN",RGB(0, 255, 0)} };
+	static BOOL Initializing;
+
+
 	PCWSTR ClassName() const { return L"Main Window"; }
 	LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 	void OnBoardSizeSmall();
 	void OnBoardSizeMedium();
 	void OnBoardSizeBig();
+	void OnNewGame();
 
 	BOOL CreateBoard();
 	BOOL ClearBoard();

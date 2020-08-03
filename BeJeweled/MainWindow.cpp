@@ -2,6 +2,34 @@
 #include "MainWindow.h"
 #include "resource.h"
 #include "Utility.h"
+#include <ctime>
+
+BOOL MainWindow::Initializing = FALSE;
+
+
+void MainWindow::OnNewGame()
+{
+    Initializing = TRUE;
+    std::srand((unsigned int)std::time(nullptr));
+    for (unsigned int i = 0; i < GetcGem(); i++)
+    {
+        for (unsigned int j = 0; j < GetcGem(); j++)
+        {
+            auto elem = colorSet.cbegin();
+            std::advance(elem, std::rand() % colorSet.size());
+
+            //SetClassLongPtr(Gems[i][j].Window(), GCLP_HBRBACKGROUND, (LONG_PTR)elem->second);
+            Gems[j][i].SetColor(elem->second);
+            InvalidateRect(Gems[j][i].Window(), NULL, TRUE);
+            UpdateWindow(Gems[j][i].Window());
+
+            //Instead I think we can use timer to give animation feeling
+            //but that seems too much work
+            Sleep(50);
+        }
+    }
+
+}
 
 BOOL MainWindow::ClearBoard()
 {
@@ -34,6 +62,7 @@ BOOL MainWindow::CreateBoard()
                 //pass from main window to Gem object
                 Gems[i][j].SetSize(GetsGem().cx, GetsGem().cy);
                 Gems[i][j].SetPosition(5 + i * GetsGem().cx + i * 10, 5 + j * GetsGem().cy + j * 10);
+                Gems[i][j].SetColor(RGB(55, 55, 55));
 
                 HBRUSH hbrush = CreateSolidBrush(RGB(55,55,55));
                 HBRUSH hOldBrush = (HBRUSH)SetClassLongPtr(Gems[i][j].Window(), GCLP_HBRBACKGROUND, (LONG_PTR)hbrush);
@@ -84,8 +113,8 @@ void MainWindow::OnBoardSizeSmall()
     
 
     AdjustWindow();
-    CreateBoard();
     InvalidateRect(Window(), NULL, TRUE);
+    CreateBoard();
 
     //this is the last thing to do
     CheckMenuItem(ID_BOARDSIZE_SMALL, GetMenu(this->Window()));
@@ -102,8 +131,8 @@ void MainWindow::OnBoardSizeMedium()
     this->SetClientSize(s);
 
     AdjustWindow();
-    CreateBoard();
     InvalidateRect(Window(), NULL, TRUE);
+    CreateBoard();
 
 
     CheckMenuItem(ID_BOARDSIZE_MEDIUM, GetMenu(this->Window()));
@@ -118,8 +147,8 @@ void MainWindow::OnBoardSizeBig()
     this->SetClientSize(s);
 
     AdjustWindow();
-    CreateBoard();
     InvalidateRect(Window(), NULL, TRUE);
+    CreateBoard();
 
 
 
@@ -135,6 +164,7 @@ LRESULT MainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
     case WM_COMMAND:
     {
         //identify menu item
+        if(!Initializing)
         switch (LOWORD(wParam))
         {
 
@@ -142,27 +172,26 @@ LRESULT MainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
         {
             OnBoardSizeSmall();
 
-            break;
-        }
+        }break;
 
         case ID_BOARDSIZE_MEDIUM:
         {
             OnBoardSizeMedium();
 
-            break;
-        }
+        }break;
 
         case ID_BOARDSIZE_BIG:
         {
             OnBoardSizeBig();
                 
-            break;
-        }
+        }break;
 
         case ID_GAME_NEWGAME:
         {
             //initialize color
-        }
+            OnNewGame();
+            Initializing = FALSE;
+        }break;
 
         case ID_GAME_EXIT:
             PostQuitMessage(0);

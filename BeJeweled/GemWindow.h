@@ -26,7 +26,7 @@ public:
 
 	GemWindow()
 	{
-		color = RGB(55, 55, 55);
+		//color = RGB(55, 55, 55);
 		TIMER_COUNTER = 0;
 	}
 
@@ -39,6 +39,8 @@ public:
 	void SetPosition(int x, int y) { position.x = x; position.y = y; }
 	POINT GetPosition() { return position; }
 
+	void SetColor(COLORREF col) { color = col; }
+	COLORREF GetColor() { return color; }
 
 	//method for tracking mouse
 	void TrackMouse(/*reusability enhanced if you add arguments in the future*/)
