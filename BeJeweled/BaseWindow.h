@@ -50,6 +50,7 @@ public:
     {
         WNDCLASS wc = { 0 };
 
+        
         wc.lpfnWndProc = DERIVED_TYPE::WindowProc;
         wc.hInstance = GetModuleHandle(NULL);
         wc.lpszClassName = ClassName();

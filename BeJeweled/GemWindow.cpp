@@ -24,15 +24,13 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_MOUSEHOVER:
     {
-        MoveWindow(Window(), GetSize().cx + 4, GetSize().cy + 4, GetPosition().x - 2, GetPosition().y - 2, TRUE);
-        InvalidateRect(Window(), NULL, TRUE);
+        MoveWindow(Window(), GetPosition().x - 2, GetPosition().y - 2, GetSize().cx + 4, GetSize().cy + 4, TRUE);
         OutputDebugString(L"MOUSE ENTERED\n");
     }break;
 
     case WM_MOUSELEAVE:
     {
-        MoveWindow(Window(), GetSize().cx, GetSize().cy, GetPosition().x, GetPosition().y, TRUE);
-        InvalidateRect(Window(), NULL, TRUE);
+        MoveWindow(Window(), GetPosition().x, GetPosition().y, GetSize().cx, GetSize().cy, TRUE);
         OutputDebugString(L"MOUSE LEFT\n");
         tracking = false;
     }break;
