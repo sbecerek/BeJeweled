@@ -2,10 +2,10 @@
 #define MAINWINDOW_H
 
 #include <windows.h>
-#include "BaseWindow.h"
-#include "GemWindow.h"
 #include <map>
 #include <string>
+#include "BaseWindow.h"
+#include "GemWindow.h"
 
 #define MAX_GEM_COUNT 12
 
@@ -25,7 +25,10 @@ protected:
 public:
 	GemWindow Gems[MAX_GEM_COUNT][MAX_GEM_COUNT];
 	const std::map<std::string, COLORREF> colorSet{ {"NAVY",RGB(0,0,128)},{"PINK",RGB(255, 105, 180)},{"TURQUISE",RGB(64, 224, 208)},{"RED",RGB(255, 0, 0)},{"YELLOW", RGB(255, 255, 0)},{"GREEN",RGB(0, 255, 0)} };
+
+
 	static BOOL Initializing;
+	
 
 
 	PCWSTR ClassName() const { return L"Main Window"; }

@@ -1,10 +1,21 @@
 #include <iostream>
 #include <math.h>
 #include "GemWindow.h"
-
-
+#include "BeJeweled.h"
 
 BOOL GemWindow::tracking = false;
+
+void GemWindow::OnMouseClick()
+{
+    //think more about this
+    //HDC hdc = GetDC(Window());
+    //RECT rect = { GetPosition().y,GetPosition().x + GetSize().cx, GetPosition().y + GetSize().cy };
+    //DrawEdge(hdc, &rect, BDR_RAISEDINNER, BF_RECT);
+
+    //ReleaseDC(Window(), hdc);
+
+}
+
 
 LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -13,6 +24,15 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
     case WM_DESTROY:
         DestroyWindow(Window());
         break;
+
+    case WM_LBUTTONDOWN:
+    {
+        if (BeJeweled::GetInstance().Initialized)
+        {
+            OutputDebugString(L"LEFT MOUSE CLICK\n");
+            OnMouseClick();
+        }
+    }break;
 
     case WM_MOUSEMOVE:
     {
@@ -31,9 +51,6 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_MOUSELEAVE:
     {
-        //MoveWindow(Window(), GetPosition().x + 2, GetPosition().y + 2, GetSize().cx - 4, GetSize().cy - 4, TRUE);
-        //SetSize(GetSize().cx - 4, GetSize().cy - 4);
-        //SetPosition(GetPosition().x + 2, GetPosition().y + 2);
         SetTimer(Window(), this->GEM_TIMER ,50,NULL);
         OutputDebugString(L"MOUSE LEFT\n");
         OutputDebugString(L"PING\n");

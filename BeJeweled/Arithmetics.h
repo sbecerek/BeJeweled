@@ -1,6 +1,7 @@
 #ifndef ARITHMETICS_H
 #define ARITHMETICS_H
 #include <windows.h>
+
 SIZE MeasureSize(HWND hwnd)
 {
     //calculates the size of the rectangle

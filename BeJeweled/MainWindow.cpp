@@ -1,8 +1,10 @@
-#include "Arithmetics.h"
+#include <ctime>
 #include "MainWindow.h"
+#include "Arithmetics.h"
 #include "resource.h"
 #include "Utility.h"
-#include <ctime>
+#include "BeJeweled.h"
+
 
 BOOL MainWindow::Initializing = FALSE;
 
@@ -28,6 +30,7 @@ void MainWindow::OnNewGame()
             Sleep(50);
         }
     }
+    
 
 }
 
@@ -115,6 +118,7 @@ void MainWindow::OnBoardSizeSmall()
     AdjustWindow();
     InvalidateRect(Window(), NULL, TRUE);
     CreateBoard();
+    
 
     //this is the last thing to do
     CheckMenuItem(ID_BOARDSIZE_SMALL, GetMenu(this->Window()));
@@ -133,6 +137,7 @@ void MainWindow::OnBoardSizeMedium()
     AdjustWindow();
     InvalidateRect(Window(), NULL, TRUE);
     CreateBoard();
+    
 
 
     CheckMenuItem(ID_BOARDSIZE_MEDIUM, GetMenu(this->Window()));
@@ -149,7 +154,7 @@ void MainWindow::OnBoardSizeBig()
     AdjustWindow();
     InvalidateRect(Window(), NULL, TRUE);
     CreateBoard();
-
+    
 
 
 
@@ -170,18 +175,21 @@ LRESULT MainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case ID_BOARDSIZE_SMALL:
         {
+            BeJeweled::GetInstance().Initialized = FALSE;
             OnBoardSizeSmall();
 
         }break;
 
         case ID_BOARDSIZE_MEDIUM:
         {
+            BeJeweled::GetInstance().Initialized = FALSE;
             OnBoardSizeMedium();
 
         }break;
 
         case ID_BOARDSIZE_BIG:
         {
+            BeJeweled::GetInstance().Initialized = FALSE;
             OnBoardSizeBig();
                 
         }break;
@@ -191,6 +199,7 @@ LRESULT MainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
             //initialize color
             OnNewGame();
             Initializing = FALSE;
+            BeJeweled::GetInstance().Initialized = TRUE;
         }break;
 
         case ID_GAME_EXIT:

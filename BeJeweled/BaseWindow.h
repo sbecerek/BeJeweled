@@ -1,4 +1,6 @@
-#pragma once
+#ifndef BASEWINDOW_H
+#define BASEWINDOW_H
+
 #include <windows.h>
 
 template <class DERIVED_TYPE>
@@ -75,3 +77,5 @@ protected:
 
     HWND m_hwnd;
 };
+
+#endif
