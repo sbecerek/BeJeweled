@@ -2,12 +2,21 @@
 #include "MainWindow.h"
 #include "Arithmetics.h"
 #include "resource.h"
-#include "Utility.h"
 #include "BeJeweled.h"
 
 
 BOOL MainWindow::Initializing = FALSE;
 
+
+DWORD MainWindow::CheckItem(UINT hItem, HMENU hmenu)
+{
+	//First uncheck all
+	CheckMenuItem(hmenu, ID_BOARDSIZE_SMALL, MF_BYCOMMAND | MF_UNCHECKED);
+	CheckMenuItem(hmenu, ID_BOARDSIZE_MEDIUM, MF_BYCOMMAND | MF_UNCHECKED);
+	CheckMenuItem(hmenu, ID_BOARDSIZE_BIG, MF_BYCOMMAND | MF_UNCHECKED);
+	//then check the hItem
+	return CheckMenuItem(hmenu, hItem, MF_BYCOMMAND | MF_CHECKED);
+}
 
 void MainWindow::OnNewGame()
 {
@@ -17,13 +26,13 @@ void MainWindow::OnNewGame()
     {
         for (unsigned int j = 0; j < GetcGem(); j++)
         {
-            auto elem = colorSet.cbegin();
-            std::advance(elem, std::rand() % colorSet.size());
+            auto elem = BeJeweled::GetInstance().colorSet.cbegin();
+            std::advance(elem, std::rand() % BeJeweled::GetInstance().colorSet.size());
 
             //SetClassLongPtr(Gems[i][j].Window(), GCLP_HBRBACKGROUND, (LONG_PTR)elem->second);
-            Gems[j][i].SetColor(elem->second);
-            InvalidateRect(Gems[j][i].Window(), NULL, TRUE);
-            UpdateWindow(Gems[j][i].Window());
+            BeJeweled::GetInstance().Gems[j][i].SetColor(elem->second);
+            InvalidateRect(BeJeweled::GetInstance().Gems[j][i].Window(), NULL, TRUE);
+            UpdateWindow(BeJeweled::GetInstance().Gems[j][i].Window());
 
             //Instead I think we can use timer to give animation feeling
             //but that seems too much work
@@ -43,7 +52,7 @@ BOOL MainWindow::ClearBoard()
             //SendMessage(Gems[i][j].Window(), WM_CLOSE, NULL, NULL);
             //Handle WM_DESTROY no need to send message
             //below function sends WM_DESTROY
-            DestroyWindow(Gems[i][j].Window());
+            DestroyWindow(BeJeweled::GetInstance().Gems[i][j].Window());
         }
     }
     
@@ -58,19 +67,19 @@ BOOL MainWindow::CreateBoard()
     {
         for (unsigned int j = 0; j < GetcGem(); j++)
         {
-            if (Gems[i][j].Create(L"gem",  WS_CHILDWINDOW | WS_VISIBLE, NULL, 
+            if (BeJeweled::GetInstance().Gems[i][j].Create(L"gem",  WS_CHILDWINDOW | WS_VISIBLE, NULL,
               5 + i * GetsGem().cx + i * 10, 
               5 + j * GetsGem().cy + j * 10, GetsGem().cx, GetsGem().cy, Window(), NULL))
             {
                 //pass from main window to Gem object
-                Gems[i][j].SetSize(GetsGem().cx, GetsGem().cy);
-                Gems[i][j].SetPosition(5 + i * GetsGem().cx + i * 10, 5 + j * GetsGem().cy + j * 10);
-                Gems[i][j].SetColor(RGB(55, 55, 55));
+                BeJeweled::GetInstance().Gems[i][j].SetSize(GetsGem().cx, GetsGem().cy);
+                BeJeweled::GetInstance().Gems[i][j].SetPosition(5 + i * GetsGem().cx + i * 10, 5 + j * GetsGem().cy + j * 10);
+                BeJeweled::GetInstance().Gems[i][j].SetColor(RGB(55, 55, 55));
 
                 HBRUSH hbrush = CreateSolidBrush(RGB(55,55,55));
-                HBRUSH hOldBrush = (HBRUSH)SetClassLongPtr(Gems[i][j].Window(), GCLP_HBRBACKGROUND, (LONG_PTR)hbrush);
+                HBRUSH hOldBrush = (HBRUSH)SetClassLongPtr(BeJeweled::GetInstance().Gems[i][j].Window(), GCLP_HBRBACKGROUND, (LONG_PTR)hbrush);
                 DeleteObject(hOldBrush);
-                InvalidateRect(Gems[i][j].Window(), NULL, TRUE);
+                InvalidateRect(BeJeweled::GetInstance().Gems[i][j].Window(), NULL, TRUE);
 
             }
             else
@@ -121,7 +130,7 @@ void MainWindow::OnBoardSizeSmall()
     
 
     //this is the last thing to do
-    CheckMenuItem(ID_BOARDSIZE_SMALL, GetMenu(this->Window()));
+    CheckItem(ID_BOARDSIZE_SMALL, GetMenu(this->Window()));
 
 
 }
@@ -140,7 +149,7 @@ void MainWindow::OnBoardSizeMedium()
     
 
 
-    CheckMenuItem(ID_BOARDSIZE_MEDIUM, GetMenu(this->Window()));
+    CheckItem(ID_BOARDSIZE_MEDIUM, GetMenu(this->Window()));
 }
 
 void MainWindow::OnBoardSizeBig()
@@ -158,7 +167,7 @@ void MainWindow::OnBoardSizeBig()
 
 
 
-    CheckMenuItem(ID_BOARDSIZE_BIG, GetMenu(this->Window()));
+    CheckItem(ID_BOARDSIZE_BIG, GetMenu(this->Window()));
 
 }
 

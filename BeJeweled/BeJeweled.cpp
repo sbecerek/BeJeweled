@@ -1,6 +1,7 @@
 #include <windows.h>
 #include "MainWindow.h"
 #include "resource.h"
+#include "BeJeweled.h"
 
 
 
@@ -33,10 +34,24 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
-		}
+			try
+			{
+				OutputDebugString(L"TRY\n");
+				BeJeweled::GetInstance().OnIdle();
+			}
+			catch (std::exception& e)
+			{
+				OutputDebugString(L"CATCH\n");
+				BeJeweled::GetInstance().OnError(e.what());
+				//close();
 
+			}
+
+		}
 		//TranslateMessage(&msg);
 		//DispatchMessage(&msg);
+
+
 	}
 
 	return 0;

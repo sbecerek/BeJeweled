@@ -2,14 +2,13 @@
 #define MAINWINDOW_H
 
 #include <windows.h>
-#include <map>
 #include <string>
 #include "BaseWindow.h"
 #include "GemWindow.h"
 
-#define MAX_GEM_COUNT 12
 
-//enum class COLORS : COLORREF { NAVY = RGB(0,0,128), PINK = RGB(255, 105, 180), TURQUISE = RGB(64, 224, 208), RED = RGB(255, 0, 0), YELLOW = RGB(255, 255, 0), GREEN = RGB(0, 255, 0)};
+
+
 
 class MainWindow : public BaseWindow<MainWindow>
 {
@@ -23,8 +22,7 @@ protected:
 	//vector holding the gems
 
 public:
-	GemWindow Gems[MAX_GEM_COUNT][MAX_GEM_COUNT];
-	const std::map<std::string, COLORREF> colorSet{ {"NAVY",RGB(0,0,128)},{"PINK",RGB(255, 105, 180)},{"TURQUISE",RGB(64, 224, 208)},{"RED",RGB(255, 0, 0)},{"YELLOW", RGB(255, 255, 0)},{"GREEN",RGB(0, 255, 0)} };
+	
 
 
 	static BOOL Initializing;
@@ -60,10 +58,8 @@ public:
 	SIZE GetsGem() { return sGem; }
 
 
-	//TODO:Write accessors for Gems Container
-	//void SetGems(const std::vector<std::vector<GemWindow>>& x) { Gems = x;}
-	//const std::vector<std::vector<GemWindow>>& GetGems() const {return Gems;}
 
+	DWORD CheckItem(UINT hItem, HMENU hmenu);
 
 
 };

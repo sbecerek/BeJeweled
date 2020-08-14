@@ -8,9 +8,9 @@ BOOL GemWindow::tracking = false;
 void GemWindow::OnMouseClick()
 {
     //think more about this
-    //HDC hdc = GetDC(Window());
-    //RECT rect = { GetPosition().y,GetPosition().x + GetSize().cx, GetPosition().y + GetSize().cy };
-    //DrawEdge(hdc, &rect, BDR_RAISEDINNER, BF_RECT);
+    HDC hdc = GetDC(Window());
+    RECT rect = { GetPosition().x + 5,GetPosition().y + 5,GetPosition().x + GetSize().cx - 5, GetPosition().y + GetSize().cy -5 };
+    DrawEdge(hdc, &rect, BDR_RAISEDINNER, BF_RECT);
 
     //ReleaseDC(Window(), hdc);
 
