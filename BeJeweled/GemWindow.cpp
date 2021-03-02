@@ -5,34 +5,38 @@
 
 BOOL GemWindow::tracking = false;
 
-void GemWindow::OnMouseClick()
-{
-    //think more about this
-    HDC hdc = GetDC(Window());
-    RECT rect = { GetPosition().x + 5,GetPosition().y + 5,GetPosition().x + GetSize().cx - 5, GetPosition().y + GetSize().cy -5 };
-    DrawEdge(hdc, &rect, BDR_RAISEDINNER, BF_RECT);
 
-    //ReleaseDC(Window(), hdc);
-
-}
 
 
 LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+    int num = 0;
     switch (uMsg)
     {
     case WM_DESTROY:
         DestroyWindow(Window());
         break;
 
+    
     case WM_LBUTTONDOWN:
     {
-        if (BeJeweled::GetInstance().Initialized)
+        if(BeJeweled::GetInstance().GetSelectedGem() == Window())
         {
-            OutputDebugString(L"LEFT MOUSE CLICK\n");
-            OnMouseClick();
+	        //deselect window
+            BeJeweled::GetInstance().SetSelectedGem(static_cast<HWND>(nullptr));
+        	//paint the color
+            InvalidateRect(Window(),NULL,TRUE );
+            
         }
-    }break;
+        else if(BeJeweled::GetInstance().Initialized && BeJeweled::GetInstance().GetSelectedGem() != Window())
+        {
+            //InvalidateRect(GetParent(Window()), NULL, TRUE);
+	        //selectwindow
+            BeJeweled::GetInstance().SetSelectedGem(Window());
+            InvalidateRect(Window(), NULL, TRUE);
+        }
+    }
+    break;
 
     case WM_MOUSEMOVE:
     {
@@ -46,7 +50,10 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
     case WM_MOUSEHOVER:
     {
         MoveWindow(Window(), GetPosition().x - 4, GetPosition().y - 4, GetSize().cx + 8, GetSize().cy + 8, TRUE);
+        //SendMessage(Window(), WM_LBUTTONDOWN, 0, 0);
+        InvalidateRect(Window(), NULL, TRUE);
         OutputDebugString(L"MOUSE ENTERED\n");
+
     }break;
 
     case WM_MOUSELEAVE:
@@ -67,6 +74,8 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
                     TIMER_COUNTER++;
                     MoveWindow(Window(), GetPosition().x + 1 * TIMER_COUNTER - 4, GetPosition().y + 1* TIMER_COUNTER - 4, GetSize().cx - 2 * TIMER_COUNTER + 8 , GetSize().cy - 2 * TIMER_COUNTER + 8, TRUE);
                     OutputDebugString(L"PONG\n");
+                    InvalidateRect(Window(), NULL, TRUE);
+                	
                 }
                 else
                 {
@@ -83,7 +92,25 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
     {
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(m_hwnd, &ps);
-        FillRect(hdc, &ps.rcPaint, CreateSolidBrush(color));
+		FillRect(hdc, &ps.rcPaint, CreateSolidBrush(color));
+
+        if (BeJeweled::GetInstance().GetSelectedGem() == Window())
+        {
+            //paint rectangle
+            RECT rcWind;
+            HDC dc = GetDC(Window());
+            GetWindowRect(Window(), &rcWind);
+            RECT rcClient;
+            //MoveWindow(hWnd, rcWind.left - 4, rcWind.top - 4, 8 + rcWind.right - rcWind.left, 8 + rcWind.bottom - rcWind.top, TRUE);
+            GetClientRect(Window(), &rcClient);
+            HPEN hPen = CreatePen(PS_SOLID, 5, RGB(0, 0, 0));
+            HGDIOBJ hOldPen = SelectObject(dc, hPen);
+            SelectObject(dc, GetStockObject(NULL_BRUSH));
+            Rectangle(dc, rcClient.left, rcClient.top, rcClient.right, rcClient.bottom);
+            DeleteObject(hPen);
+
+
+        }
         EndPaint(m_hwnd, &ps);
         OutputDebugString(L"PAINT\n");
     }

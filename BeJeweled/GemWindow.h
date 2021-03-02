@@ -20,7 +20,7 @@ public:
 	static BOOL tracking;
 	PCWSTR ClassName() const { return L"Gem"; }
 	LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
-	void OnMouseClick();
+	HWND OnMouseClick();
 
 
 
