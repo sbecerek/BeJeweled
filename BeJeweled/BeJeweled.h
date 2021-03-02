@@ -78,9 +78,30 @@ public:
 
 	void SetSelectedGem(HWND g)
 	{
-		InvalidateRect(SelectedGem, NULL, TRUE);
+		HWND oldGem = SelectedGem;
+
+		if(oldGem != NULL && g != NULL)
+		{
+		InvalidateRect(oldGem, NULL, TRUE);
+		InvalidateRect(g, NULL, TRUE);
+			
+		}
+		else if(oldGem != NULL)
+		{
+			InvalidateRect(oldGem, NULL, TRUE);
+
+		}
+		else
+		{
+			InvalidateRect(g, NULL, TRUE);
+
+		}
 		SelectedGem = g;
+
+
 	}
+
+	
 	HWND GetSelectedGem()
 	{
 		return SelectedGem;

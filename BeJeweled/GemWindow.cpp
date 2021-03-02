@@ -5,7 +5,21 @@
 
 BOOL GemWindow::tracking = false;
 
-
+void DrawGemBorder(HWND gemHandle)
+{
+    //paint rectangle
+    RECT rcWind;
+    HDC dc = GetDC(gemHandle);
+    GetWindowRect(gemHandle, &rcWind);
+    RECT rcClient;
+    //MoveWindow(hWnd, rcWind.left - 4, rcWind.top - 4, 8 + rcWind.right - rcWind.left, 8 + rcWind.bottom - rcWind.top, TRUE);
+    GetClientRect(gemHandle, &rcClient);
+    HPEN hPen = CreatePen(PS_SOLID, 5, RGB(0, 0, 0));
+    HGDIOBJ hOldPen = SelectObject(dc, hPen);
+    SelectObject(dc, GetStockObject(NULL_BRUSH));
+    Rectangle(dc, rcClient.left, rcClient.top, rcClient.right, rcClient.bottom);
+    DeleteObject(hPen);
+}
 
 
 LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -25,7 +39,7 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 	        //deselect window
             BeJeweled::GetInstance().SetSelectedGem(static_cast<HWND>(nullptr));
         	//paint the color
-            InvalidateRect(Window(),NULL,TRUE );
+            //InvalidateRect(Window(),NULL,TRUE );
             
         }
         else if(BeJeweled::GetInstance().Initialized && BeJeweled::GetInstance().GetSelectedGem() != Window())
@@ -33,7 +47,7 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
             //InvalidateRect(GetParent(Window()), NULL, TRUE);
 	        //selectwindow
             BeJeweled::GetInstance().SetSelectedGem(Window());
-            InvalidateRect(Window(), NULL, TRUE);
+            //InvalidateRect(Window(), NULL, TRUE);
         }
     }
     break;
@@ -81,6 +95,8 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
                 {
                     KillTimer(Window(), GEM_TIMER);
                     TIMER_COUNTER = 0;
+                    InvalidateRect(Window(), NULL, TRUE);
+
                 }
             }
         }
@@ -96,20 +112,7 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         if (BeJeweled::GetInstance().GetSelectedGem() == Window())
         {
-            //paint rectangle
-            RECT rcWind;
-            HDC dc = GetDC(Window());
-            GetWindowRect(Window(), &rcWind);
-            RECT rcClient;
-            //MoveWindow(hWnd, rcWind.left - 4, rcWind.top - 4, 8 + rcWind.right - rcWind.left, 8 + rcWind.bottom - rcWind.top, TRUE);
-            GetClientRect(Window(), &rcClient);
-            HPEN hPen = CreatePen(PS_SOLID, 5, RGB(0, 0, 0));
-            HGDIOBJ hOldPen = SelectObject(dc, hPen);
-            SelectObject(dc, GetStockObject(NULL_BRUSH));
-            Rectangle(dc, rcClient.left, rcClient.top, rcClient.right, rcClient.bottom);
-            DeleteObject(hPen);
-
-
+            DrawGemBorder(Window());
         }
         EndPaint(m_hwnd, &ps);
         OutputDebugString(L"PAINT\n");
