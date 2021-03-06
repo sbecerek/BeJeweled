@@ -1,5 +1,8 @@
-﻿  BeJeweled.cpp
-  GemWindow.cpp
+﻿  GemWindow.cpp
   MainWindow.cpp
+C:\Users\suhey\Desktop\BeJeweled\BeJeweled\MainWindow.cpp(25,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\suhey\Desktop\BeJeweled\BeJeweled\MainWindow.cpp(27,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\suhey\Desktop\BeJeweled\BeJeweled\MainWindow.cpp(51,20): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\suhey\Desktop\BeJeweled\BeJeweled\MainWindow.cpp(57,19): warning C4018: '<=': signed/unsigned mismatch
   Generating Code...
   BeJeweled.vcxproj -> C:\Users\suhey\Desktop\BeJeweled\x64\Debug\BeJeweled.exe

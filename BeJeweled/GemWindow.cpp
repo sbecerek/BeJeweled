@@ -34,6 +34,7 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
     
     case WM_LBUTTONDOWN:
     {
+
         if(BeJeweled::GetInstance().GetSelectedGem() == Window())
         {
 	        //deselect window
@@ -64,9 +65,10 @@ LRESULT GemWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
     case WM_MOUSEHOVER:
     {
         MoveWindow(Window(), GetPosition().x - 4, GetPosition().y - 4, GetSize().cx + 8, GetSize().cy + 8, TRUE);
-        //SendMessage(Window(), WM_LBUTTONDOWN, 0, 0);
         InvalidateRect(Window(), NULL, TRUE);
         OutputDebugString(L"MOUSE ENTERED\n");
+
+    	
 
     }break;
 

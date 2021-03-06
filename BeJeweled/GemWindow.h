@@ -1,6 +1,7 @@
 #ifndef GEMWINDOW_H
 #define GEMWINDOW_H
 #include <math.h>
+#include  <vector>
 #include "BaseWindow.h"
 
 
@@ -17,11 +18,21 @@ public:
 	const int GEM_TIMER = static_cast<const int>(pow(GetPosition().x , GetPosition().y));
 
 
+	//these allow access to neighbors of each gem
+	GemWindow* TOP;
+	GemWindow* LEFT;
+	GemWindow* BOTTOM;
+	GemWindow* RIGHT;
+
+	
+
+
 	static BOOL tracking;
 	PCWSTR ClassName() const { return L"Gem"; }
 	LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
 	HWND OnMouseClick();
 
+	
 
 
 	GemWindow()
@@ -41,6 +52,13 @@ public:
 
 	void SetColor(COLORREF col) { color = col; }
 	COLORREF GetColor() { return color; }
+
+	std::vector<GemWindow*> FindPossibleMove()
+	{
+		//check if possible move is scoring move?HOW?
+		//1.at least 2 neighbors of neighbor is same color
+		//2.at least 1 neighbor and its neighbor is same color
+	}
 
 	//method for tracking mouse
 	void TrackMouse(/*reusability enhanced if you add arguments in the future*/)

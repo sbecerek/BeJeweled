@@ -22,10 +22,11 @@ void MainWindow::OnNewGame()
 {
     Initializing = TRUE;
     std::srand((unsigned int)std::time(nullptr));
-    for (unsigned int i = 0; i < GetcGem(); i++)
+    for (int i = 0; i < GetcGem(); i++)
     {
-        for (unsigned int j = 0; j < GetcGem(); j++)
+        for (int j = 0; j < GetcGem(); j++)
         {
+        	//randomize a color from the colorset
             auto elem = BeJeweled::GetInstance().colorSet.cbegin();
             std::advance(elem, std::rand() % BeJeweled::GetInstance().colorSet.size());
 
@@ -33,6 +34,35 @@ void MainWindow::OnNewGame()
             BeJeweled::GetInstance().Gems[j][i].SetColor(elem->second);
             InvalidateRect(BeJeweled::GetInstance().Gems[j][i].Window(), NULL, TRUE);
             UpdateWindow(BeJeweled::GetInstance().Gems[j][i].Window());
+
+
+            if( j - 1 >= 0)
+            {
+                BeJeweled::GetInstance().Gems[j][i].LEFT = &BeJeweled::GetInstance().Gems[j - 1 ][i];
+            }
+            else
+                BeJeweled::GetInstance().Gems[j][i].LEFT = nullptr;
+        	if(i - 1 >= 0 )
+        	{
+                BeJeweled::GetInstance().Gems[j][i].TOP = &BeJeweled::GetInstance().Gems[j][i - 1];
+        	}
+            else
+                BeJeweled::GetInstance().Gems[j][i].TOP = nullptr;
+        	if( i + 1 <= cGem)
+        	{
+                BeJeweled::GetInstance().Gems[j][i].BOTTOM = &BeJeweled::GetInstance().Gems[j][i + 1];
+        	}
+            else
+                BeJeweled::GetInstance().Gems[j][i].BOTTOM = nullptr;
+        	if(j + 1 <= cGem)
+        	{
+                BeJeweled::GetInstance().Gems[j][i].RIGHT = &BeJeweled::GetInstance().Gems[j + 1][i];
+        	}
+            else
+                BeJeweled::GetInstance().Gems[j][i].RIGHT = nullptr;
+
+
+
 
             //Instead I think we can use timer to give animation feeling
             //but that seems too much work
@@ -80,6 +110,7 @@ BOOL MainWindow::CreateBoard()
                 HBRUSH hOldBrush = (HBRUSH)SetClassLongPtr(BeJeweled::GetInstance().Gems[i][j].Window(), GCLP_HBRBACKGROUND, (LONG_PTR)hbrush);
                 DeleteObject(hOldBrush);
                 InvalidateRect(BeJeweled::GetInstance().Gems[i][j].Window(), NULL, TRUE);
+
 
             }
             else
